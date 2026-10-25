@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e1b">
+    <title>Security Events | FutureSOC AI 2.0</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <a href="dashboard.html" class="brand">
+            <span class="brand-mark">F</span>
+            <span class="brand-copy">
+                <strong>FutureSOC <span>AI</span></strong>
+                <small>Security Intelligence Platform</small>
+                <small class="version-label">RESEARCH EDITION · 2.0</small>
+            </span>
+        </a>
+
+        <div class="nav-section-label">WORKSPACE</div>
+
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">
+                <span class="nav-icon">◫</span> Command Center
+            </a></li>
+
+            <li><a href="upload-logs.html">
+                <span class="nav-icon">⇧</span> Log Intake
+            </a></li>
+
+            <li><a href="events.html" class="active">
+                <span class="nav-icon">≋</span> Security Events
+            </a></li>
+
+            <li><a href="alerts.html">
+                <span class="nav-icon">⚑</span> Normalized Alerts
+            </a></li>
+
+            <li><a href="incidents.html">
+                <span class="nav-icon">◎</span> Incidents
+            </a></li>
+
+            <li><a href="incident-details.html">
+                <span class="nav-icon">⌕</span> AI Investigation
+            </a></li>
+
+            <li><a href="response-approval.html">
+                <span class="nav-icon">✓</span> Human Approval
+            </a></li>
+
+            <li><a href="reports.html">
+                <span class="nav-icon">▤</span> Reports
+            </a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>Research workspace</strong>
+                    <small>Operational overview</small>
+                </div>
+            </div>
+
+            <button class="logout-btn" id="logoutBtn" type="button">
+                <span>↪</span> Sign out
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="dashboard-header">
+            <div class="header-heading">
+                <div class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    SECURITY OPERATIONS
+                </div>
+                <h1>Security Events</h1>
+                <p>
+                    Structured events created from uploaded authentic logs.
+                </p>
+            </div>
+
+            <div class="header-actions">
+                <div class="connection-indicator">
+                    <span class="status-dot"></span>
+                    <span>Events API</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>Event Overview</h2>
+                    <p>Summary of parsed security records.</p>
+                </div>
+            </div>
+
+            <div class="command-grid">
+                <div class="command-card">
+                    <h3>Total Events</h3>
+                    <div class="number" id="totalEvents">0</div>
+                    <p class="small-text">All parsed security records</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>Authentication Events</h3>
+                    <div class="number" id="authEvents">0</div>
+                    <p class="small-text">Login success/failure activity</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>Failed Events</h3>
+                    <div class="number high" id="failedEvents">0</div>
+                    <p class="small-text">Failed authentication records</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>Admin Events</h3>
+                    <div class="number critical" id="adminEvents">0</div>
+                    <p class="small-text">Admin/root account activity</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>Parsed Event Stream</h2>
+                    <p>Raw logs converted into normalized event fields.</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Source IP</th>
+                            <th>Username</th>
+                            <th>Asset</th>
+                            <th>Event Type</th>
+                            <th>Status</th>
+                            <th>Severity</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="eventsTableBody">
+                        <tr>
+                            <td colspan="7">Loading security events...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/events.js"></script>
+
+</body>
+</html>

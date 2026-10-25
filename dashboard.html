@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e1b">
+    <title>Command Center | FutureSOC AI 2.0</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-page">
+
+<div class="app dashboard-app">
+
+    
+<aside class="sidebar dashboard-sidebar">
+    <a href="dashboard.html" class="brand">
+        <span class="brand-mark">F</span>
+        <span class="brand-copy">
+            <strong>FutureSOC <span>AI</span></strong>
+            <small>Security Intelligence Platform</small>
+            <small class="version-label">RESEARCH EDITION · 2.0</small>
+        </span>
+    </a>
+
+    <div class="nav-section-label">WORKSPACE</div>
+
+    <ul class="nav-menu">
+        <li><a href="dashboard.html" class="active">
+            <span class="nav-icon">◫</span> Command Center
+        </a></li>
+        <li><a href="upload-logs.html">
+            <span class="nav-icon">⇧</span> Log Intake
+        </a></li>
+        <li><a href="events.html">
+            <span class="nav-icon">≋</span> Security Events
+        </a></li>
+        <li><a href="alerts.html">
+            <span class="nav-icon">⚑</span> Normalized Alerts
+        </a></li>
+        <li><a href="incidents.html">
+            <span class="nav-icon">◎</span> Incidents
+        </a></li>
+        <li><a href="incident-details.html">
+            <span class="nav-icon">⌕</span> AI Investigation
+        </a></li>
+        <li><a href="response-approval.html" >
+            <span class="nav-icon">✓</span> Human Approval
+        </a></li>
+        <li><a href="reports.html">
+            <span class="nav-icon">▤</span> Reports
+        </a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+        <div class="sidebar-status">
+            <span class="status-dot"></span>
+            <div>
+                <strong>Research workspace</strong>
+                <small>Operational overview</small>
+            </div>
+        </div>
+        <button class="logout-btn" id="logoutBtn" type="button">
+            <span>↪</span> Sign out
+        </button>
+    </div>
+</aside>
+
+
+    <main class="main-content dashboard-main">
+
+        <header class="dashboard-header">
+            <div class="header-heading">
+                <div class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    SECURITY OPERATIONS
+                </div>
+                <h1>Command Center</h1>
+                <p>Monitor security activity, investigate incidents, and review response decisions.</p>
+            </div>
+
+            <div class="header-actions">
+                <div class="connection-indicator" id="dashboardConnection">
+                    <span class="status-dot"></span>
+                    <span id="dashboardConnectionText">Connecting to API</span>
+                </div>
+
+                <button class="refresh-btn" id="refreshDashboard" type="button">
+                    <span class="refresh-icon">↻</span>
+                    Refresh
+                </button>
+
+                <div class="user-chip">
+                    <div class="user-avatar" id="dashboardAvatar">U</div>
+                    <div class="user-details">
+                        <strong id="dashboardUserName">Loading...</strong>
+                        <span id="dashboardUserRole">USER</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="overview-heading">
+            <div>
+                <h2>Security overview</h2>
+                <p>Organization-level metrics retrieved from the database.</p>
+            </div>
+            <span class="data-source-label">
+                <span class="status-dot"></span> LIVE API DATA
+            </span>
+        </section>
+
+        <div class="metrics-grid">
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">Security Events</span>
+                    <span class="metric-icon icon-blue">≋</span>
+                </div>
+                <div class="metric-value" id="dashboardTotalEvents">—</div>
+                <div class="metric-bottom">
+                    <span>Stored security events</span>
+                    <span class="metric-symbol">↗</span>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">Normalized Alerts</span>
+                    <span class="metric-icon icon-purple">⚑</span>
+                </div>
+                <div class="metric-value" id="dashboardTotalAlerts">—</div>
+                <div class="metric-bottom">
+                    <span>Generated alert records</span>
+                    <span class="metric-symbol">↗</span>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">Total Incidents</span>
+                    <span class="metric-icon icon-orange">◎</span>
+                </div>
+                <div class="metric-value" id="dashboardTotalIncidents">—</div>
+                <div class="metric-bottom">
+                    <span>Recorded incident cases</span>
+                    <span class="metric-symbol">↗</span>
+                </div>
+            </article>
+
+            <article class="metric-card metric-card-critical">
+                <div class="metric-top">
+                    <span class="metric-label">Pending Approvals</span>
+                    <span class="metric-icon icon-red">✓</span>
+                </div>
+                <div class="metric-value" id="dashboardPendingApprovals">—</div>
+                <div class="metric-bottom">
+                    <span>Actions awaiting a decision</span>
+                    <a href="response-approval.html">Review →</a>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">Uploaded Log Files</span>
+                    <span class="metric-icon icon-cyan">⇧</span>
+                </div>
+                <div class="metric-value" id="dashboardLogs">—</div>
+                <div class="metric-bottom">
+                    <span>Registered log uploads</span>
+                    <a href="upload-logs.html">View →</a>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">Critical Incidents</span>
+                    <span class="metric-icon icon-red">!</span>
+                </div>
+                <div class="metric-value value-red" id="dashboardCriticalIncidents">—</div>
+                <div class="metric-bottom">
+                    <span>Severity: critical</span>
+                    <a href="incidents.html">Inspect →</a>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">High-Risk Incidents</span>
+                    <span class="metric-icon icon-orange">△</span>
+                </div>
+                <div class="metric-value value-orange" id="dashboardHighIncidents">—</div>
+                <div class="metric-bottom">
+                    <span>Severity: high</span>
+                    <a href="incidents.html">Inspect →</a>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div class="metric-top">
+                    <span class="metric-label">Investigation Workflow</span>
+                    <span class="metric-icon icon-green">⌘</span>
+                </div>
+                <div class="metric-value workflow-value">Configured</div>
+                <div class="metric-bottom">
+                    <span>Workflow components are being developed</span>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="dashboard-columns">
+
+            <section class="panel incidents-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-kicker">INCIDENT MONITORING</div>
+                        <h2>Recent incidents</h2>
+                        <p>Latest incident records from your organization.</p>
+                    </div>
+                    <a class="text-link" href="incidents.html">All incidents <span>→</span></a>
+                </div>
+
+                <div class="table-scroll">
+                    <table class="incidents-table">
+                        <thead>
+                            <tr>
+                                <th>INCIDENT</th>
+                                <th>SOURCE IP</th>
+                                <th>USER</th>
+                                <th>RISK</th>
+                                <th>SEVERITY</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboardIncidentsBody">
+                            <tr>
+                                <td colspan="6" class="table-message">
+                                    Loading incident records...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <span>Showing the latest five incidents</span>
+                    <span id="incidentTableStatus">Waiting for data</span>
+                </div>
+            </section>
+
+            <section class="panel source-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-kicker">EVENT DISTRIBUTION</div>
+                        <h2>Top source IPs</h2>
+                        <p>Sources with the most recorded events.</p>
+                    </div>
+                </div>
+
+                <div id="dashboardTopIpsList" class="source-list">
+                    <div class="empty-state">Loading source data...</div>
+                </div>
+
+                <div class="panel-footer">
+                    <span>Ranked by event count</span>
+                    <a href="events.html" class="text-link">View events →</a>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="dashboard-columns lower-columns">
+
+            <section class="panel workflow-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-kicker">SYSTEM WORKFLOW</div>
+                        <h2>Security processing pipeline</h2>
+                        <p>Current processing stages in the existing application.</p>
+                    </div>
+                    <span class="neutral-badge">Workflow overview</span>
+                </div>
+
+                <div class="workflow-list">
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">01</div>
+                        <div class="workflow-step-copy">
+                            <strong>Log intake</strong>
+                            <span>Upload security log files</span>
+                        </div>
+                        <span class="workflow-stage">Input</span>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">02</div>
+                        <div class="workflow-step-copy">
+                            <strong>Event parsing</strong>
+                            <span>Extract and store security events</span>
+                        </div>
+                        <span class="workflow-stage">Parsing</span>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">03</div>
+                        <div class="workflow-step-copy">
+                            <strong>Alert normalization</strong>
+                            <span>Group events into alert records</span>
+                        </div>
+                        <span class="workflow-stage">Analysis</span>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">04</div>
+                        <div class="workflow-step-copy">
+                            <strong>Incident detection</strong>
+                            <span>Apply existing detection rules</span>
+                        </div>
+                        <span class="workflow-stage">Detection</span>
+                    </div>
+
+                    <div class="workflow-step workflow-step-planned">
+                        <div class="workflow-step-number">05</div>
+                        <div class="workflow-step-copy">
+                            <strong>Independent evidence validation</strong>
+                            <span>Research upgrade planned for version 2.0</span>
+                        </div>
+                        <span class="planned-badge">Planned</span>
+                    </div>
+
+                    <div class="workflow-step">
+                        <div class="workflow-step-number">06</div>
+                        <div class="workflow-step-copy">
+                            <strong>Human review and reporting</strong>
+                            <span>Review proposed actions and generate reports</span>
+                        </div>
+                        <span class="workflow-stage">Review</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel research-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-kicker">RESEARCH WORKSPACE</div>
+                        <h2>Evaluation readiness</h2>
+                        <p>Experiments required for the FutureSOC AI 2.0 study.</p>
+                    </div>
+                </div>
+
+                <div class="research-intro">
+                    <span class="research-icon">⌘</span>
+                    <div>
+                        <strong>Evidence-grounded investigation</strong>
+                        <p>The planned core research contribution for version 2.0.</p>
+                    </div>
+                </div>
+
+                <div class="research-checklist">
+                    <div class="research-item">
+                        <span class="research-item-icon">01</span>
+                        <div>
+                            <strong>Ground-truth dataset</strong>
+                            <span>Verified incident labels</span>
+                        </div>
+                        <span class="research-status">Pending</span>
+                    </div>
+
+                    <div class="research-item">
+                        <span class="research-item-icon">02</span>
+                        <div>
+                            <strong>Baseline comparison</strong>
+                            <span>Rule-only and LLM-based methods</span>
+                        </div>
+                        <span class="research-status">Pending</span>
+                    </div>
+
+                    <div class="research-item">
+                        <span class="research-item-icon">03</span>
+                        <div>
+                            <strong>Validation ablation</strong>
+                            <span>Compare with validation disabled</span>
+                        </div>
+                        <span class="research-status">Pending</span>
+                    </div>
+
+                    <div class="research-item">
+                        <span class="research-item-icon">04</span>
+                        <div>
+                            <strong>Performance evaluation</strong>
+                            <span>Detection and validation metrics</span>
+                        </div>
+                        <span class="research-status">Pending</span>
+                    </div>
+                </div>
+
+                <div class="research-note">
+                    These are planned experiments, not measured results. Results will be displayed after the evaluation pipeline is implemented and run.
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="dashboard-footer">
+            <span>FutureSOC AI 2.0 <span class="footer-separator">/</span> Security Operations</span>
+            <span id="dashboardLastUpdated">Metrics have not yet loaded</span>
+        </footer>
+
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>

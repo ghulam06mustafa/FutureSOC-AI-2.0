@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Approval | FutureSOC AI</title>
+    <link rel="stylesheet" href="css/human-approval.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>FutureSOC <span>AI</span></h2>
+        <p class="subtitle">Agentic Security Operations</p>
+        <nav>
+            <a href="dashboard.html">⌂ Command Center</a>
+            <a href="log-intake.html">⇧ Log Intake</a>
+            <a href="security-events.html">◉ Security Events</a>
+            <a href="alerts.html">⚑ Normalized Alerts</a>
+            <a href="incidents.html">⚠ Incidents</a>
+            <a class="active" href="human-approval.html">✓ Human Approval</a>
+            <a href="reports.html">▤ Reports</a>
+        </nav>
+        <button id="logoutButton" class="logout">Logout</button>
+    </aside>
+
+    <main class="main">
+        <header>
+            <div>
+                <p class="eyebrow">SECURITY OPERATIONS / GOVERNANCE</p>
+                <h1>Human Approval</h1>
+                <p class="muted">Review proposed response actions before execution.</p>
+            </div>
+            <button id="refreshButton" class="secondary">Refresh</button>
+        </header>
+
+        <section class="notice">
+            <strong>Approval is not execution.</strong>
+            <p>Restricted response actions must be approved before execution.
+            Review the incident and evidence before making a decision.</p>
+        </section>
+
+        <section class="stats">
+            <article class="stat">
+                <span>Pending Approval</span>
+                <strong id="pendingCount">—</strong>
+            </article>
+            <article class="stat">
+                <span>Approved</span>
+                <strong id="approvedCount">—</strong>
+            </article>
+            <article class="stat">
+                <span>Rejected</span>
+                <strong id="rejectedCount">—</strong>
+            </article>
+            <article class="stat">
+                <span>Not Executed</span>
+                <strong id="notExecutedCount">—</strong>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <h2>Response Actions</h2>
+                    <p class="muted">Actions belonging to your organization.</p>
+                </div>
+                <select id="statusFilter" aria-label="Filter actions">
+                    <option value="all">All actions</option>
+                    <option value="recommended">Pending approval</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+
+            <div id="message" class="message" role="status">
+                Loading response actions...
+            </div>
+
+            <div id="actionsContainer" class="actions"></div>
+        </section>
+    </main>
+
+    <script src="js/human-approval.js"></script>
+</body>
+</html>

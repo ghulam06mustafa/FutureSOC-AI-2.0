@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e1b">
+    <title>AI Investigation | FutureSOC AI 2.0</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/incident-details.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <a href="dashboard.html" class="brand">
+            <span class="brand-mark">F</span>
+            <span class="brand-copy">
+                <strong>FutureSOC <span>AI</span></strong>
+                <small>Security Intelligence Platform</small>
+                <small class="version-label">RESEARCH EDITION · 2.0</small>
+            </span>
+        </a>
+
+        <div class="nav-section-label">WORKSPACE</div>
+
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">
+                <span class="nav-icon">◫</span> Command Center
+            </a></li>
+            <li><a href="upload-logs.html">
+                <span class="nav-icon">⇧</span> Log Intake
+            </a></li>
+            <li><a href="events.html">
+                <span class="nav-icon">≋</span> Security Events
+            </a></li>
+            <li><a href="alerts.html">
+                <span class="nav-icon">⚑</span> Normalized Alerts
+            </a></li>
+            <li><a href="incidents.html">
+                <span class="nav-icon">◎</span> Incidents
+            </a></li>
+            <li><a href="incident-details.html" class="active">
+                <span class="nav-icon">⌕</span> AI Investigation
+            </a></li>
+            <li><a href="response-approval.html">
+                <span class="nav-icon">✓</span> Human Approval
+            </a></li>
+            <li><a href="reports.html">
+                <span class="nav-icon">▤</span> Reports
+            </a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>Research workspace</strong>
+                    <small>Operational overview</small>
+                </div>
+            </div>
+
+            <button type="button" id="logoutBtn" class="logout-btn">
+                <span>↪</span> Sign out
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="dashboard-header">
+            <div class="header-heading">
+                <div class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    SECURITY OPERATIONS
+                </div>
+                <h1>AI Investigation</h1>
+                <p>
+                    Examine evidence, validate incident hypotheses, and review
+                    investigation steps.
+                </p>
+            </div>
+
+            <div class="header-actions">
+                <div class="connection-indicator">
+                    <span class="status-dot"></span>
+                    <span>Investigation Workspace</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="incident-page">
+
+            <div class="incident-toolbar">
+                <a href="incidents.html" class="btn btn-secondary">
+                    ← Back to Incidents
+                </a>
+
+                <button type="button" class="btn btn-secondary"
+                        id="refreshIncidentBtn">
+                    Refresh
+                </button>
+            </div>
+
+            <!-- Incident overview -->
+            <section class="section incident-overview">
+                <div class="incident-heading">
+                    <div class="incident-title-block">
+                        <p class="incident-eyebrow">Incident Overview</p>
+                        <h2 id="incidentTitle">Loading incident...</h2>
+                        <p id="incidentSubtitle">
+                            Retrieving incident information.
+                        </p>
+                    </div>
+
+                    <div class="risk-score">
+                        <span>Risk Score</span>
+                        <strong id="detailRiskScore">—</strong>
+                        <small>Out of 100</small>
+                    </div>
+                </div>
+
+                <div class="incident-metrics">
+                    <article class="incident-metric">
+                        <span>Validation Status</span>
+                        <strong id="detailValidationStatus">—</strong>
+                    </article>
+
+                    <article class="incident-metric">
+                        <span>MITRE Technique</span>
+                        <strong id="detailMitreTechnique">—</strong>
+                    </article>
+
+                    <article class="incident-metric">
+                        <span>Approval Status</span>
+                        <strong id="detailApprovalStatus">—</strong>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Incident summary -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2>Incident Summary</h2>
+                        <p>Recorded incident attributes and current status.</p>
+                    </div>
+                </div>
+
+                <ul id="incidentSummaryList" class="incident-info-list">
+                    <li>Loading incident summary...</li>
+                </ul>
+            </section>
+
+            <!-- Hypothesis and risk -->
+            <div class="incident-two-column">
+
+                <section class="section">
+                    <div class="section-header">
+                        <div>
+                            <h2>Incident Hypothesis</h2>
+                            <p>Hypothesis requiring evidence-based assessment.</p>
+                        </div>
+                    </div>
+
+                    <div class="hypothesis-box">
+                        <p id="aiHypothesisText">No hypothesis recorded.</p>
+                    </div>
+
+                    <p class="incident-note">
+                        A detection hypothesis is not proof of malicious intent.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <div class="section-header">
+                        <div>
+                            <h2>Risk Assessment</h2>
+                            <p>Recorded risk information and interpretation.</p>
+                        </div>
+                    </div>
+
+                    <ul id="riskBreakdownList" class="incident-info-list">
+                        <li>Loading risk assessment...</li>
+                    </ul>
+                </section>
+
+            </div>
+
+            <!-- Evidence -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2>Incident Evidence</h2>
+                        <p>Evidence records associated with this incident.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Evidence Type</th>
+                                <th>Summary</th>
+                                <th>Evidence Data</th>
+                                <th>Recorded At</th>
+                            </tr>
+                        </thead>
+                        <tbody id="evidenceTableBody">
+                            <tr>
+                                <td colspan="4">Loading evidence...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Evidence validation -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2>Evidence Validation Results</h2>
+                        <p>
+                            Supporting evidence, contradicting evidence,
+                            and missing information.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="validationResultsBox" class="validation-results">
+                    No validation results have been recorded.
+                </div>
+            </section>
+
+            <!-- Investigation workflow -->
+            <section class="section" id="investigationWorkflowSection">
+                <div class="section-header">
+                    <div>
+                        <p class="incident-eyebrow">Investigation Engine</p>
+                        <h2>Agentic Investigation Workflow</h2>
+                        <p>
+                            Run the investigation workflow and inspect
+                            its recorded steps.
+                        </p>
+                    </div>
+
+                    <button type="button" class="btn btn-primary"
+                            id="runInvestigationBtn">
+                        Run Investigation
+                    </button>
+                </div>
+
+                <p id="investigationMessage"
+                   class="investigation-message"
+                   role="status"
+                   aria-live="polite">
+                    Ready to investigate.
+                </p>
+
+                <div class="incident-metrics investigation-metrics">
+                    <article class="incident-metric">
+                        <span>Workflow Status</span>
+                        <strong id="investigationRunStatus">—</strong>
+                    </article>
+
+                    <article class="incident-metric">
+                        <span>Validation Outcome</span>
+                        <strong id="investigationOutcome">—</strong>
+                    </article>
+
+                    <article class="incident-metric">
+                        <span>Correlated Events</span>
+                        <strong id="correlatedEventCount">—</strong>
+                    </article>
+                </div>
+
+                <div class="investigation-summary">
+                    <h3>Investigation Summary</h3>
+                    <p id="investigationSummary">
+                        No investigation has been run yet.
+                    </p>
+                </div>
+
+                <div class="section-header investigation-steps-heading">
+                    <div>
+                        <h3>Recorded Investigation Steps</h3>
+                        <p>Tools, status, rationale, and recorded outputs.</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="investigation-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>Tool</th>
+                                <th>Status</th>
+                                <th>Decision Rationale</th>
+                                <th>Output</th>
+                            </tr>
+                        </thead>
+                        <tbody id="investigationStepsBody">
+                            <tr>
+                                <td colspan="5">
+                                    Run an investigation to view its steps.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="incident-note">
+                    Completing a workflow does not establish malicious intent.
+                    An inconclusive result may require further evidence or
+                    human review.
+                </p>
+            </section>
+
+            <!-- MITRE ATT&CK -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2>MITRE ATT&CK Mapping</h2>
+                        <p>Techniques associated with the incident.</p>
+                    </div>
+                </div>
+
+                <div id="mitreTagsBox" class="mitre-tags">
+                    <span class="mitre-tag">Loading mappings...</span>
+                </div>
+            </section>
+
+            <!-- Response actions -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2>Recommended Response Actions</h2>
+                        <p>
+                            Review proposed actions and their approval
+                            and execution states.
+                        </p>
+                    </div>
+
+                    <a href="response-approval.html"
+                       class="btn btn-secondary">
+                        Human Approval
+                    </a>
+                </div>
+
+                <ul id="responseActionsList" class="response-action-list">
+                    <li>Loading response actions...</li>
+                </ul>
+
+                <p class="incident-note">
+                    Approval and execution are separate states.
+                    An approved action is not necessarily executed.
+                </p>
+            </section>
+
+            <!-- Timeline -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2>Incident Timeline</h2>
+                        <p>Recorded events and investigation activity.</p>
+                    </div>
+                </div>
+
+                <div id="timelineBox" class="timeline">
+                    <div class="timeline-item">
+                        <h4>Loading timeline...</h4>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/incident-details.js"></script>
+
+<script>
+    document.getElementById("refreshIncidentBtn")?.addEventListener(
+        "click",
+        () => window.location.reload()
+    );
+</script>
+
+</body>
+</html>

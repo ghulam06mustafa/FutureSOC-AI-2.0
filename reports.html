@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080e1b">
+    <title>Reports | FutureSOC AI 2.0</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reports.css">
+
+    <style>
+        .report-preview-box {
+            background: #ffffff;
+            color: #1f2937;
+            padding: 30px;
+            border-radius: 15px;
+            overflow: auto;
+            max-height: 900px;
+        }
+
+        .report-preview-box * {
+            color: #1f2937 !important;
+        }
+
+        .report-preview-box h1,
+        .report-preview-box h2,
+        .report-preview-box h3 {
+            color: #0f172a !important;
+            margin-bottom: 15px;
+        }
+
+        .report-preview-box p,
+        .report-preview-box li {
+            color: #1f2937 !important;
+        }
+
+        .report-preview-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background: #ffffff !important;
+        }
+
+        .report-preview-box th {
+            background: #e2e8f0 !important;
+            color: #0f172a !important;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .report-preview-box td {
+            background: #ffffff !important;
+            color: #1f2937 !important;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .report-preview-box .badge {
+            background: #fee2e2 !important;
+            color: #991b1b !important;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="app">
+
+    <aside class="sidebar">
+        <a href="dashboard.html" class="brand">
+            <span class="brand-mark">F</span>
+            <span class="brand-copy">
+                <strong>FutureSOC <span>AI</span></strong>
+                <small>Security Intelligence Platform</small>
+                <small class="version-label">RESEARCH EDITION · 2.0</small>
+            </span>
+        </a>
+
+        <div class="nav-section-label">WORKSPACE</div>
+
+        <ul class="nav-menu">
+            <li><a href="dashboard.html">
+                <span class="nav-icon">◫</span> Command Center
+            </a></li>
+            <li><a href="upload-logs.html">
+                <span class="nav-icon">⇧</span> Log Intake
+            </a></li>
+            <li><a href="events.html">
+                <span class="nav-icon">≋</span> Security Events
+            </a></li>
+            <li><a href="alerts.html">
+                <span class="nav-icon">⚑</span> Normalized Alerts
+            </a></li>
+            <li><a href="incidents.html">
+                <span class="nav-icon">◎</span> Incidents
+            </a></li>
+            <li><a href="incident-details.html">
+                <span class="nav-icon">⌕</span> AI Investigation
+            </a></li>
+            <li><a href="response-approval.html">
+                <span class="nav-icon">✓</span> Human Approval
+            </a></li>
+            <li><a href="reports.html" class="active">
+                <span class="nav-icon">▤</span> Reports
+            </a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>Research workspace</strong>
+                    <small>Operational overview</small>
+                </div>
+            </div>
+
+            <button class="logout-btn" id="logoutBtn" type="button">
+                <span>↪</span> Sign out
+            </button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="dashboard-header">
+            <div class="header-heading">
+                <div class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    SECURITY OPERATIONS
+                </div>
+                <h1>Incident Reports</h1>
+                <p>Generate and preview investigation reports.</p>
+            </div>
+
+            <div class="header-actions">
+                <div class="connection-indicator">
+                    <span class="status-dot"></span>
+                    <span>HTML Reports Enabled</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>Generate Report</h2>
+                    <p>Select an incident and generate its report.</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="incidentSelect">Select Incident</label>
+                <select id="incidentSelect">
+                    <option value="">Select Incident</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" id="generateReportBtn"
+                    type="button">
+                Generate Report
+            </button>
+
+            <p id="reportMessage" class="small-text"
+               role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>Generated Reports</h2>
+                    <p>Reports stored in PostgreSQL.</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Incident ID</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th>Preview</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="reportsTableBody">
+                        <tr>
+                            <td colspan="5">Loading reports...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>Report Preview</h2>
+                    <p>HTML report preview.</p>
+                </div>
+            </div>
+
+            <div id="reportPreviewBox" class="report-preview-box">
+                <p>No report selected.</p>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/reports.js"></script>
+
+</body>
+</html>
